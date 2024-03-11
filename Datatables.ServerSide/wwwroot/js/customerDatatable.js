@@ -10,11 +10,11 @@
             "type": "POST",
             "datatype": "json"
         },
-        //"columnDefs": [{
-        //    "targets": [0],
-        //    "visible": false,
-        //    "searchable": false
-        //}],
+        "columnDefs": [{
+            "targets": [0],
+            "visible": false,
+            "searchable": false
+        }],
         "columns": [
             {
                 "data": "id", "name": "Id", "autoWidth": true, "render": function (data, type, full, meta) {
@@ -51,7 +51,7 @@
                 "name": "Read",
                 "autoWidth": true,
                 "render": function (data, type, full, meta) {
-                    return '<input type= "checkbox" id="read_' + full.id + '"  ' + (data ? ' checked' : '') + ' >';
+                    return '<input type= "checkbox" id="read_' + full.id + '" ' + (data ? ' checked' : '') + '  >';
                 }
             },
             {
@@ -59,11 +59,13 @@
                 "name": "Write",
                 "autoWidth": true,
                 "render": function (data, type, full, meta) {
-                    return '<input type="checkbox" id="write_' + full.id + '"  ' + (data ? ' checked' : '') + ' >';
+                    return '<input type="checkbox" id="write_' + full.id + '"  ' + (data ? ' checked' : '') + '  >';
                 }
             }
         ]
     });
+
+    
 
     $('#openPopupButton').on('click', function () {
         $('#popupContent').dialog({
@@ -114,6 +116,9 @@
         // Iterate over each row in the grid
         $('#customerDatatable tbody tr').each(function () {
 
+            var dateOfBirthString = $(this).closest('tr').find('td:eq(5)').text().trim();
+            var dateParts = dateOfBirthString.split('-');
+            var dateOfBirth = new Date(dateParts[0], dateParts[1]-1, parseInt(dateParts[2]));
 
             var customer = {
                 Id: parseInt($(this).closest('tr').find('td:eq(0)').text()),
@@ -121,21 +126,15 @@
                 LastName: $(this).closest('tr').find('td:eq(2)').text(),
                 Contact: $(this).closest('tr').find('td:eq(3)').text(),
                 Email: $(this).closest('tr').find('td:eq(4)').text(),
-                DateOfBirth: $(this).closest('tr').find('td:eq(5)').text(),
-                Read: $(this).closest('tr').find('td:eq(6)').text(),
-                Write: $(this).closest('tr').find('td:eq(7)').text(),
-
-                //DateOfBirth: new Date($(this).closest('tr').find('td:eq(5)').text()),
-                //Read: $(this).closest('tr').find('td:eq(6) input[type="checkbox"][id^="Read"]').prop('checked'),
-                //Write: $(this).closest('tr').find('td:eq(7) input[type="checkbox"][id^="Write"]').prop('checked'),
+                DateOfBirth: dateOfBirth,
+                Read: $(this).closest('tr').find('td:eq(6) input[type="checkbox"][id^="read"]').prop('checked'),
+                Write: $(this).closest('tr').find('td:eq(7) input[type="checkbox"][id^="write"]').prop('checked'),
             };
-
             customers.push(customer);
         });
 
-        // Send data to the server via AJAX
         $.ajax({
-            url: 'api/Customer/SaveCustomers', // Replace with your controller action URL
+            url: 'api/customer/saveCustomers', // Replace with your controller action URL
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(customers),
