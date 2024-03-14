@@ -1,71 +1,76 @@
 ﻿$(document).ready(function () {
-    $("#customerDatatable").DataTable({
+    $("#customerDatatabless").DataTable({
         "processing": true,
         "serverSide": true,
-        "ordering": false,
+        "ordering": true,
+        "searching": false
         //"paging": false,
         //"filter": true,
-        "ajax": {
-            "url": "/api/customer/create",
-            "type": "POST",
-            "datatype": "json"
-        },
+        //"ajax": {
+        //    "url": "/api/customer/create",
+        //    "type": "POST",
+        //    "datatype": "json"
+        //},
         //"columnDefs": [{
         //    "targets": [0],
         //    "visible": false,
         //    "searchable": false
         //}],
-        "columns": [
-            {
-                "data": "id", "name": "Id", "autoWidth": true, "render": function (data, type, full, meta) {
-                    return '<label id="id_' + data + '" >' + data + ' </label>';
-                }
-            },
-            {
-                "data": "firstName", "name": "FirstName", "autoWidth": true, "render": function (data, type, full, meta) {
-                    return '<label id="firstName_' + full.id + '" >' + data + ' </label>';
-                }
-            },
-            {
-                "data": "lastName", "name": "LastName", "auto   Width": true, "render": function (data, type, full, meta) {
-                    return '<label type="label" id="lastName_' + full.id + '" >' + data + ' </label>';
-                }
-            },
-            {
-                "data": "contact", "name": "Contact", "autoWidth": true, "render": function (data, type, full, meta) {
-                    return '<label type="label" id="contact_' + full.id + '" >' + data + ' </label>';
-                }
-            },
-            {
-                "data": "email", "name": "Email", "autoWidth": true, "render": function (data, type, full, meta) {
-                    return '<label type="label" id="email_' + full.id + '" >' + data + ' </label>';
-                }
-            },
-            {
-                "data": "dateOfBirth", "name": "DateOfBirth", "autoWidth": true, "render": function (data, type, full, meta) {
-                    return '<label type="label" id="dateOfBirth_' + full.id + '" >' + data + ' </label>';
-                }
-            },
-            {
-                "data": "read",
-                "name": "Read",
-                "autoWidth": true,
-                "render": function (data, type, full, meta) {
-                    return '<input type= "checkbox" id="read_' + full.id + '" ' + (data ? ' checked' : '') + '  >';
-                }
-            },
-            {
-                "data": "write",
-                "name": "Write",
-                "autoWidth": true,
-                "render": function (data, type, full, meta) {
-                    return '<input type="checkbox" id="write_' + full.id + '"  ' + (data ? ' checked' : '') + '  >';
-                }
-            }
-        ]
+        //"columns": [
+        //    {
+        //        "data": "id", "name": "Id", "autoWidth": true, "render": function (data, type, full, meta) {
+        //            return '<label id="id_' + data + '" >' + data + ' </label>';
+        //        }
+        //    },
+        //    {
+        //        "data": "firstName", "name": "FirstName", "autoWidth": true, "render": function (data, type, full, meta) {
+        //            return '<label id="firstName_' + full.id + '" >' + data + ' </label>';
+        //        }
+        //    },
+        //    {
+        //        "data": "lastName", "name": "LastName", "auto   Width": true, "render": function (data, type, full, meta) {
+        //            return '<label type="label" id="lastName_' + full.id + '" >' + data + ' </label>';
+        //        }
+        //    },
+        //    {
+        //        "data": "contact", "name": "Contact", "autoWidth": true, "render": function (data, type, full, meta) {
+        //            return '<label type="label" id="contact_' + full.id + '" >' + data + ' </label>';
+        //        }
+        //    },
+        //    {
+        //        "data": "email", "name": "Email", "autoWidth": true, "render": function (data, type, full, meta) {
+        //            return '<label type="label" id="email_' + full.id + '" >' + data + ' </label>';
+        //        }
+        //    },
+        //    {
+        //        "data": "dateOfBirth", "name": "DateOfBirth", "autoWidth": true, "render": function (data, type, full, meta) {
+        //            return '<label type="label" id="dateOfBirth_' + full.id + '" >' + data + ' </label>';
+        //        }
+        //    },
+        //    {
+        //        "data": "read",
+        //        "name": "Read",
+        //        "autoWidth": true,
+        //        "render": function (data, type, full, meta) {
+        //            return '<input type= "checkbox" id="read_' + full.id + '" ' + (data ? ' checked' : '') + '  >';
+        //        }
+        //    },
+        //    {
+        //        "data": "write",
+        //        "name": "Write",
+        //        "autoWidth": true,
+        //        "render": function (data, type, full, meta) {
+        //            return '<input type="checkbox" id="write_' + full.id + '"  ' + (data ? ' checked' : '') + '  >';
+        //        }
+        //    }
+        //]
     });
 
     
+    $('#searchInput').on('keyup', function () {
+        dataTable.search(this.value).draw();
+    });
+
 
     $('#openPopupButton').on('click', function () {
         $('#popupContent').dialog({
