@@ -156,7 +156,18 @@ namespace UserManagement.Pages
             // Save data to the database
             foreach (var customer in Customers)
             {
-                _context.Customers.Add(customer);
+                var existingCustomer = await _context.Customers.FindAsync(customer.Id);
+
+                existingCustomer.FirstName = customer.FirstName;
+                existingCustomer.LastName = customer.LastName;
+                existingCustomer.Contact = customer.Contact;
+                existingCustomer.Email = customer.Email;
+                existingCustomer.DateOfBirth = customer.DateOfBirth;
+                existingCustomer.Read = customer.Read;
+                existingCustomer.Write = customer.Write;
+
+                // Update the entry in the database
+                _context.Entry(existingCustomer).State = EntityState.Modified;
             }
             await _context.SaveChangesAsync();
 

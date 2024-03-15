@@ -222,15 +222,33 @@
                             <tbody>
                                 @for (int i = 0; i < Model.Customers.Count; i++)
                                 {
+                                    var customer = Model.Customers[i];
                                     <tr>
-                                        <td asp-for="@Model.Customers[i].Id">@Model.Customers[i].Id</td>
-                                        <td><label name= "@Model.Customers[i].FirstName" id="FirstName_@Model.Customers[i].FirstName" asp-for="@Model.Customers[i].FirstName">@Model.Customers[i].FirstName</label></td>
-                                        <td><label name= "@Model.Customers[i].LastName" id="LastName_@Model.Customers[i].Id" asp-for="@Model.Customers[i].LastName"> @Model.Customers[i].LastName</label></td>
-                                        <td><label name= "@Model.Customers[i].Contact" id="Contact_@Model.Customers[i].Id" asp-for="@Model.Customers[i].Contact"> @Model.Customers[i].Contact</label></td>
-                                        <td><label name= "@Model.Customers[i].Email" id="Email_@Model.Customers[i].Id" asp-for="@Model.Customers[i].Email"> @Model.Customers[i].Email</label></td>
-                                        <td><label name= "@Model.Customers[i].DateOfBirth" id="DateOfBirth_@Model.Customers[i].Id" asp-for="@Model.Customers[i].DateOfBirth"> @Model.Customers[i].DateOfBirth</label></td>
-                                        <td> <input type="checkbox" name= "@Model.Customers[i].Read"  id="Read_@Model.Customers[i].Id" name="Read_@Model.Customers[i].Id" asp-for="@Model.Customers[i].Read" /></td>
-                                        <td> <input type="checkbox" name= "@Model.Customers[i].Write"  id="Write_@Model.Customers[i].Id" name="Write_@Model.Customers[i].Id" asp-for="@Model.Customers[i].Write" /></td>
+                                        <td> <label asp-for="@Model.Customers[i].Id">@Model.Customers[i].Id ></label>
+                                           <input type="hidden" asp-for="@Model.Customers[i].Id" />
+                                        </td>
+                                        <td><label name= "@Model.Customers[i].FirstName" id="FirstName_@Model.Customers[i].Id" asp-for="@Model.Customers[i].FirstName">@Model.Customers[i].FirstName</label>
+                                           <input type="hidden" asp-for="@Model.Customers[i].FirstName" />
+                                        </td>
+                                        <td>
+                                          <label name= "@Model.Customers[i].LastName" id="LastName_@Model.Customers[i].Id" asp-for="@Model.Customers[i].LastName"> @Model.Customers[i].LastName</label>
+                                           <input type="hidden" asp-for="@Model.Customers[i].LastName" />
+                                        </td>
+                                        <td><label name= "@Model.Customers[i].Contact" id="Contact_@Model.Customers[i].Id" asp-for="@Model.Customers[i].Contact"> @Model.Customers[i].Contact</label>
+                                           <input type="hidden" asp-for="@Model.Customers[i].Contact" />
+                                        </td>
+                                        <td><label name= "@Model.Customers[i].Email" id="Email_@Model.Customers[i].Id" asp-for="@Model.Customers[i].Email"> @Model.Customers[i].Email</label>
+                                           <input type="hidden" asp-for="@Model.Customers[i].Email" />
+                                        </td>
+                                        <td><label name= "@Model.Customers[i].DateOfBirth" id="DateOfBirth_@Model.Customers[i].Id" asp-for="@Model.Customers[i].DateOfBirth"> @Model.Customers[i].DateOfBirth</label>
+                                           <input type="hidden" asp-for="@Model.Customers[i].DateOfBirth" />
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" name="Customers[@i].Read" id="Read_@Model.Customers[i].Id" value="true" @(customer.Read ? "checked" : "") />    
+                                        </td>
+                                        <td> 
+                                            <input type="checkbox" name="Customers[@i].Write" id="Write_@Model.Customers[i].Id" value="true" @(customer.Write ? "checked" : "") />    
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
