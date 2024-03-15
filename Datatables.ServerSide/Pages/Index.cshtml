@@ -74,221 +74,190 @@
                     <div class="alert alert-success alert-dismissible" role="alert">
                         button
                     </div>
-                    <div class="row">
-                        <div class="col-6 mb-2 pl-0">
-                            <div class="col-12">
-                                <div class="input-group">
+                    <div class="rightSide">
+                        <form method="get">
+                            <p>
+                                <input type="text" asp-for="SearchString" />
+                                @*   onkeyup="searchItems(event)"*@
+                                <input type="submit" value="Search" />
 
-                                    <form method="get">
-                                        <p>
-                                            <input type="text" asp-for="SearchString" />
-                                            @*   onkeyup="searchItems(event)"*@
-                                            <input type="submit" value="Search" />
-
-                                        </p>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                            </div>
-                        </div>
+                            </p>
+                        </form>
                     </div>
+                    <form method="post">
 
 
-                    <table id="customerDatatable" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                @{
-                                    string firstNameSortAscClass = ViewData["FirstNameSort"].ToString() == "firstname_asc" ? "active" : "inactive";
-                                    string firstNameSortDescClass = ViewData["FirstNameSort"].ToString() == "firstname_desc" ? "active" : "inactive";
-                                    string lastNameSortAscClass = ViewData["LastNameSort"].ToString() == "lastname_asc" ? "active" : "inactive";
-                                    string lastNameSortDescClass = ViewData["LastNameSort"].ToString() == "lastname_desc" ? "active" : "inactive";
-                                    string contactSortAscClass = ViewData["ContactSort"].ToString() == "contact_asc" ? "active" : "inactive";
-                                    string contactSortDescClass = ViewData["ContactSort"].ToString() == "contact_desc" ? "active" : "inactive";
-                                    string emailSortAscClass = ViewData["EmailSort"].ToString() == "email_asc" ? "active" : "inactive";
-                                    string emailSortDescClass = ViewData["EmailSort"].ToString() == "email_desc" ? "active" : "inactive";
-                                    string dateOfBirthSortAscClass = ViewData["DateOfBirthSort"].ToString() == "dateofbirth_asc" ? "active" : "inactive";
-                                    string dateOfBirthSortDescClass = ViewData["DateOfBirthSort"].ToString() == "dateofbirth_desc" ? "active" : "inactive";
-                                    string readSortAscClass = ViewData["ReadSort"].ToString() == "read_asc" ? "active" : "inactive";
-                                    string readSortDescClass = ViewData["ReadSort"].ToString() == "read_desc" ? "active" : "inactive";
-                                    string writeSortAscClass = ViewData["WriteSort"].ToString() == "write_asc" ? "active" : "inactive";
-                                    string writeSortDescClass = ViewData["WriteSort"].ToString() == "write_desc" ? "active" : "inactive";
-                                }
-                                <th>
-                                    <a asp-page="./Index" asp-route-firstNameSort="firstname_asc" class="@firstNameSortAscClass">
-                                        First Name @if (ViewData["FirstNameSort"].ToString() == "firstname_asc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["FirstNameSort"].ToString() == "firstname_desc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-                                    <a asp-page="./Index" asp-route-firstNameSort="firstname_desc"
-                                       class="@firstNameSortDescClass">
-                                        First Name @if (ViewData["FirstNameSort"].ToString() == "firstname_desc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["FirstNameSort"].ToString() == "firstname_asc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-
-                                </th>
-
-                                <!-- LastName column -->
-                                <th>
-                                    <a asp-page="./Index" asp-route-lastNameSort="lastname_asc" class="@lastNameSortAscClass">
-                                        Last Name @if (ViewData["LastNameSort"].ToString() == "lastname_asc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["LastNameSort"].ToString() == "lastname_desc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-                                    <a asp-page="./Index" asp-route-lastNameSort="lastname_asc" class="@lastNameSortDescClass">
-                                        Last Name @if (ViewData["LastNameSort"].ToString() == "lastname_desc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["LastNameSort"].ToString() == "lastname_asc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-                                </th>
-
-                                <!-- Contact column -->
-                                <th>
-                                    <a asp-page="./Index" asp-route-contactSort="contact_asc" class="@contactSortAscClass">
-                                        Contact @if (ViewData["ContactSort"].ToString() == "contact_asc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["ContactSort"].ToString() == "contact_desc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-                                    <a asp-page="./Index" asp-route-contactSort="contact_asc" class="@contactSortDescClass">
-                                        Contact @if (ViewData["ContactSort"].ToString() == "contact_desc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["ContactSort"].ToString() == "contact_asc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-                                </th>
-
-                                <!-- Email column -->
-                                <th>
-                                    <a asp-page="./Index" asp-route-emailSort="email_asc" class="@emailSortAscClass">
-                                        Email @if (ViewData["EmailSort"].ToString() == "email_asc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["EmailSort"].ToString() == "email_desc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-                                    <a asp-page="./Index" asp-route-emailSort="email_asc" class="@emailSortDescClass">
-                                        Email @if (ViewData["EmailSort"].ToString() == "email_desc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["EmailSort"].ToString() == "email_asc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-                                </th>
-                                <!-- DateOfBirth column -->
-                                <th>
-                                    <a asp-page="./Index" asp-route-dateOfBirthSort="dateofbirth_asc" class="@dateOfBirthSortAscClass">
-                                        Date of Birth @if (ViewData["DateOfBirthSort"].ToString() == "dateofbirth_asc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["DateOfBirthSort"].ToString() == "dateofbirth_desc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-                                    <a asp-page="./Index" asp-route-dateOfBirthSort="dateofbirth_asc" class="@dateOfBirthSortDescClass">
-                                        Date of Birth @if (ViewData["DateOfBirthSort"].ToString() == "dateofbirth_desc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["DateOfBirthSort"].ToString() == "dateofbirth_asc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-                                </th>
-
-                                <!-- Read column -->
-                                <th>
-                                    <a asp-page="./Index" asp-route-dateOfBirthSort="read_asc" class="@readSortAscClass">
-                                        Read @if (ViewData["ReadSort"].ToString() == "read_asc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["ReadSort"].ToString() == "read_desc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-                                </th>
-                                <!-- Write column -->
-                                <th>
-                                    <a asp-page="./Index" asp-route-dateOfBirthSort="write_asc" class="@writeSortAscClass">
-                                        Wrire @if (ViewData["WriteSort"].ToString() == "write_asc")
-                                        {
-                                            <span>▲</span>
-                                        } @if (ViewData["WriteSort"].ToString() == "write_desc")
-                                        {
-                                            <span>▼</span>
-                                        }
-                                    </a>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var customer in Model.Customers)
-                            {
+                        <table id="customerDatatable" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td>@customer.Id</td>
-                                    <td><label id="FirstName_@customer.Id">@customer.FirstName</label></td>
-                                    <td><label id="LastName_@customer.Id"> @customer.LastName</label></td>
-                                    <td><label id="Contact_@customer.Id"> @customer.Contact</label></td>
-                                    <td><label id="Email_@customer.Id"> @customer.Email</label></td>
-                                    <td><label id="DateOfBirth_@customer.Id"> @customer.DateOfBirth</label></td>
-                                    <td> <input type="checkbox" id="Read_@customer.Id" name="Read_@customer.Id" @(customer.Read ? "checked" : "") /></td>
-                                    <td> <input type="checkbox" id="Write_@customer.Id" name="Write_@customer.Id" @(customer.Write ? "checked" : "") /></td>
+                                    <th>Id</th>
+                                    @{
+                                        string firstNameSortAscClass = ViewData["FirstNameSort"].ToString() == "firstname_asc" ? "active" : "inactive";
+                                        string firstNameSortDescClass = ViewData["FirstNameSort"].ToString() == "firstname_desc" ? "active" : "inactive";
+                                        string lastNameSortAscClass = ViewData["LastNameSort"].ToString() == "lastname_asc" ? "active" : "inactive";
+                                        string lastNameSortDescClass = ViewData["LastNameSort"].ToString() == "lastname_desc" ? "active" : "inactive";
+                                        string contactSortAscClass = ViewData["ContactSort"].ToString() == "contact_asc" ? "active" : "inactive";
+                                        string contactSortDescClass = ViewData["ContactSort"].ToString() == "contact_desc" ? "active" : "inactive";
+                                        string emailSortAscClass = ViewData["EmailSort"].ToString() == "email_asc" ? "active" : "inactive";
+                                        string emailSortDescClass = ViewData["EmailSort"].ToString() == "email_desc" ? "active" : "inactive";
+                                        string dateOfBirthSortAscClass = ViewData["DateOfBirthSort"].ToString() == "dateofbirth_asc" ? "active" : "inactive";
+                                        string dateOfBirthSortDescClass = ViewData["DateOfBirthSort"].ToString() == "dateofbirth_desc" ? "active" : "inactive";
+                                        string readSortAscClass = ViewData["ReadSort"].ToString() == "read_asc" ? "active" : "inactive";
+                                        string readSortDescClass = ViewData["ReadSort"].ToString() == "read_desc" ? "active" : "inactive";
+                                        string writeSortAscClass = ViewData["WriteSort"].ToString() == "write_asc" ? "active" : "inactive";
+                                        string writeSortDescClass = ViewData["WriteSort"].ToString() == "write_desc" ? "active" : "inactive";
+                                    }
+                                    <th>
+                                        <a asp-page="./Index" asp-route-firstNameSort="firstname_asc" class="@firstNameSortAscClass">
+                                            First Name @if (ViewData["FirstNameSort"].ToString() == "firstname_asc")
+                                            {
+                                                <span>▲</span>
+                                            }
+                                        </a>
+                                        <a asp-page="./Index" asp-route-firstNameSort="firstname_desc"
+                                           class="@firstNameSortDescClass">
+                                            First Name @if (ViewData["FirstNameSort"].ToString() == "firstname_desc")
+                                            {
+                                                <span>▼</span>
+                                            }
+                                        </a>
+
+                                    </th>
+
+                                    <!-- LastName column -->
+                                    <th>
+                                        <a asp-page="./Index" asp-route-lastNameSort="lastname_asc" class="@lastNameSortAscClass">
+                                            Last Name @if (ViewData["LastNameSort"].ToString() == "lastname_asc")
+                                            {
+                                                <span>▲</span>
+                                            }
+                                        </a>
+                                        <a asp-page="./Index" asp-route-lastNameSort="lastname_desc" class="@lastNameSortDescClass">
+                                            Last Name @if (ViewData["LastNameSort"].ToString() == "lastname_desc")
+                                            {
+                                                <span>▼</span>
+                                            }
+                                        </a>
+                                    </th>
+
+                                    <!-- Contact column -->
+                                    <th>
+                                        <a asp-page="./Index" asp-route-contactSort="contact_asc" class="@contactSortAscClass">
+                                            Contact @if (ViewData["ContactSort"].ToString() == "contact_asc")
+                                            {
+                                                <span>▲</span>
+                                            }
+                                        </a>
+                                        <a asp-page="./Index" asp-route-contactSort="contact_desc" class="@contactSortDescClass">
+                                            Contact @if (ViewData["ContactSort"].ToString() == "contact_desc")
+                                            {
+                                                <span>▼</span>
+                                            }
+                                        </a>
+                                    </th>
+
+                                    <!-- Email column -->
+                                    <th>
+                                        <a asp-page="./Index" asp-route-emailSort="email_asc" class="@emailSortAscClass">
+                                            Email @if (ViewData["EmailSort"].ToString() == "email_asc")
+                                            {
+                                                <span>▲</span>
+                                            }
+                                        </a>
+                                        <a asp-page="./Index" asp-route-emailSort="email_desc" class="@emailSortDescClass">
+                                            Email @if (ViewData["EmailSort"].ToString() == "email_desc")
+                                            {
+                                                <span>▼</span>
+                                            }
+                                        </a>
+                                    </th>
+                                    <!-- DateOfBirth column -->
+                                    <th>
+                                        <a asp-page="./Index" asp-route-dateOfBirthSort="dateofbirth_asc" class="@dateOfBirthSortAscClass">
+                                            Date of Birth @if (ViewData["DateOfBirthSort"].ToString() == "dateofbirth_asc")
+                                            {
+                                                <span>▲</span>
+                                            }
+                                        </a>
+                                        <a asp-page="./Index" asp-route-dateOfBirthSort="dateofbirth_desc" class="@dateOfBirthSortDescClass">
+                                            Date of Birth @if (ViewData["DateOfBirthSort"].ToString() == "dateofbirth_desc")
+                                            {
+                                                <span>▼</span>
+                                            }
+                                        </a>
+                                    </th>
+
+                                    <!-- Read column -->
+                                    <th>
+                                        <a asp-page="./Index" asp-route-dateOfBirthSort="read_asc" class="@readSortAscClass">
+                                            Read @if (ViewData["ReadSort"].ToString() == "read_asc")
+                                            {
+                                                <span>▲</span>
+                                            }
+                                        </a>
+                                        <a asp-page="./Index" asp-route-dateOfBirthSort="read_asc" class="@readSortDescClass">
+                                            Read @if (ViewData["ReadSort"].ToString() == "read_desc")
+                                            {
+                                                <span>▼</span>
+                                            }
+                                        </a>
+                                    </th>
+                                    <!-- Write column -->
+                                    <th>
+                                        <a asp-page="./Index" asp-route-dateOfBirthSort="write_asc" class="@writeSortAscClass">
+                                            Wrire @if (ViewData["WriteSort"].ToString() == "write_asc")
+                                            {
+                                                <span>▲</span>
+                                            }
+                                        </a>
+                                        <a asp-page="./Index" asp-route-dateOfBirthSort="write_asc" class="@writeSortDescClass">
+                                            Read @if (ViewData["WriteSort"].ToString() == "write_desc")
+                                            {
+                                                <span>▼</span>
+                                            }
+                                        </a>
+                                    </th>
                                 </tr>
-                            }
-                        </tbody>
-
-
-                    </table>
-                    <div>
-                        Page @(Model.PageNumber) of @((int)Math.Ceiling((double)Model.TotalItems / Model.PageSize))
-                        <nav>
-                            <ul class="pagination">
-                                @for (int i = 1; i <= (int)Math.Ceiling((double)Model.TotalItems / Model.PageSize); i++)
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Customers.Count; i++)
                                 {
-                                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
-                                        <a class="page-link" href="?pageNumber=@i">@i</a>
-                                    </li>
+                                    <tr>
+                                        <td asp-for="@Model.Customers[i].Id">@Model.Customers[i].Id</td>
+                                        <td><label name= "@Model.Customers[i].FirstName" id="FirstName_@Model.Customers[i].FirstName" asp-for="@Model.Customers[i].FirstName">@Model.Customers[i].FirstName</label></td>
+                                        <td><label name= "@Model.Customers[i].LastName" id="LastName_@Model.Customers[i].Id" asp-for="@Model.Customers[i].LastName"> @Model.Customers[i].LastName</label></td>
+                                        <td><label name= "@Model.Customers[i].Contact" id="Contact_@Model.Customers[i].Id" asp-for="@Model.Customers[i].Contact"> @Model.Customers[i].Contact</label></td>
+                                        <td><label name= "@Model.Customers[i].Email" id="Email_@Model.Customers[i].Id" asp-for="@Model.Customers[i].Email"> @Model.Customers[i].Email</label></td>
+                                        <td><label name= "@Model.Customers[i].DateOfBirth" id="DateOfBirth_@Model.Customers[i].Id" asp-for="@Model.Customers[i].DateOfBirth"> @Model.Customers[i].DateOfBirth</label></td>
+                                        <td> <input type="checkbox" name= "@Model.Customers[i].Read"  id="Read_@Model.Customers[i].Id" name="Read_@Model.Customers[i].Id" asp-for="@Model.Customers[i].Read" /></td>
+                                        <td> <input type="checkbox" name= "@Model.Customers[i].Write"  id="Write_@Model.Customers[i].Id" name="Write_@Model.Customers[i].Id" asp-for="@Model.Customers[i].Write" /></td>
+                                    </tr>
                                 }
-                            </ul>
-                        </nav>
-                    </div>
+                            </tbody>
+
+
+                        </table>
+                        <div>
+                            Page @(Model.PageNumber) of @((int)Math.Ceiling((double)Model.TotalItems / Model.PageSize))
+                            <nav>
+                                <ul class="pagination">
+                                    @for (int i = 1; i <= (int)Math.Ceiling((double)Model.TotalItems / Model.PageSize); i++)
+                                    {
+                                        <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                            <a class="page-link" href="?pageNumber=@i">@i</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
+                        <button id="saveBtn" type="submit">Save</button>
+
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <div>
-    </div>
-    <button id="saveButton" type="submit">Save</button>
+ 
 
     <button id="openPopupButton" type="button">Add Customer</button>
     <div id="popupContent" style="display: none;" class="custom-modal-content">
@@ -333,6 +302,12 @@
     .inactive {
         color: gray; /* Change color to indicate inactive state */
         display: none;
+    }
+
+    .rightSide {
+        overflow: hidden;
+        clear: both;
+        float: right;
     }
 </style>
 @section Scripts

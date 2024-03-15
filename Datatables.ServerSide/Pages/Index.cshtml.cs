@@ -22,26 +22,44 @@ namespace UserManagement.Pages
             _context = context;
             _logger = logger;
         }
+        [BindProperty]
         public List<Customer> Customers { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SortOrder { get; set; }
 
+        [BindProperty]
         public string FirstNameSort { get; set; } = "firstname_asc";
+
+        [BindProperty]
         public string LastNameSort { get; set; } = "lastname_asc";
+
+        [BindProperty]
         public string ContactSort { get; set; } = "contact_asc";
+
+        [BindProperty]
         public string EmailSort { get; set; } = "email_asc";
+
+        [BindProperty]
         public string DateOfBirthSort { get; set; } = "dateofbirth_asc";
+
+        [BindProperty]
         public string ReadSort { get; set; } = "read_asc";
+
+        [BindProperty]
         public string WriteSort { get; set; } = "write_asc";
+
         [BindProperty(SupportsGet = true)]
         public int PageNumber { get; set; } = 1; // Default to first page
+
 
         [BindProperty(SupportsGet = true)]
         public int PageSize { get; set; } = 10; // Default page size
 
+        [BindProperty]
         public int TotalItems { get; set; }
         public async Task OnGetAsync(string firstNameSort, string lastNameSort, string contactSort, string emailSort, string dateOfBirthSort, string readSort, string writeSort)
         {
@@ -126,7 +144,23 @@ namespace UserManagement.Pages
             Customers = await items.Skip((PageNumber - 1) * PageSize)
                                    .Take(PageSize)
                                    .ToListAsync();
-            //Customers = await items.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+           
+            // Save data to the database
+            foreach (var customer in Customers)
+            {
+                _context.Customers.Add(customer);
+            }
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Index");
         }
 
         private void ViewDataSetup(string firstNameSort, string lastNameSort, string contactSort, string emailSort, string dateOfBirthSort, string readSort, string writeSort)
