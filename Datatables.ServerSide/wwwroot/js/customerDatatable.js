@@ -2,7 +2,7 @@
     $("#customerDatatable").DataTable({
         "processing": true,
         "serverSide": true,
-        "ordering": false,
+        "ordering": true,
         //"paging": false,
         //"filter": true,
         "ajax": {
@@ -10,6 +10,16 @@
             "type": "POST",
             "datatype": "json"
         },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Custom Button',
+                action: function () {
+                    openOrInitializeDialog();
+                }
+
+            }
+        ],
         //"columnDefs": [{
         //    "targets": [0],
         //    "visible": false,
@@ -65,7 +75,36 @@
         ]
     });
 
-    
+    function openOrInitializeDialog() {
+        var dialog = $("#dialog-form");
+        if (!dialog.dialog("instance")) {
+            // If dialog is not initialized, initialize it first
+            initializeDialog();
+        }
+        dialog.dialog("open");
+    }
+
+    function initializeDialog() {
+        $("#dialog-form").dialog({
+            autoOpen: false,
+            height: 400,
+            width: 350,
+            modal: true,
+            buttons: {
+                "Add User": function () {
+                    // Add user logic here
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                // Clear form or do other necessary actions when the dialog is closed
+            }
+        });
+    }
+
 
     $('#openPopupButton').on('click', function () {
         $('#popupContent').dialog({
